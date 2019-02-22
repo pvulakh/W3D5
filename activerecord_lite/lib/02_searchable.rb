@@ -5,7 +5,7 @@ require 'byebug'
 module Searchable
   def where(params)
     colsets = params.keys.map { |col| col.to_s + " = ? AND "}.join[0..-5]
-    values = params.values
+    values = params.values #must have distinct string values; can't do .join(", ")
     results = DBConnection.execute(<<-SQL, *values)
     SELECT 
       * 
